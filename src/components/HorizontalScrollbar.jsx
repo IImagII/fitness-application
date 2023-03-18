@@ -7,6 +7,7 @@ import RightArrowIcon from '../assets/icons/right-arrow.png'
 import LeftArrowIcon from '../assets/icons/left-arrow.png'
 import ExerciseCard from './ExerciseCard'
 
+/*================это стрелки для навигации по слайдеру===========*/
 const LeftArrow = () => {
    const { scrollPrev } = useContext(VisibilityContext)
 
@@ -26,7 +27,9 @@ const RightArrow = () => {
       </Typography>
    )
 }
+/*================это стрелки для навигации по слайдеру===========*/
 
+// это компонент слайдера по категориям
 const HorizontalScrollbar = ({ data, bodyParts, setBodyPart, bodyPart }) => (
    <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
       {data.map(item => (
@@ -36,15 +39,6 @@ const HorizontalScrollbar = ({ data, bodyParts, setBodyPart, bodyPart }) => (
             title={item.id || item} //это сделано для того чтобы работал слайдер горизонтальный
             m='0 40px'
          >
-            {/* {bodyParts ? (
-               <BodyPart
-                  item={item}
-                  setBodyPart={setBodyPart}
-                  bodyPart={bodyPart}
-               />
-            ) : (
-               <ExerciseCard exercise={item} />
-            )} */}
             <BodyPart
                item={item}
                bodyPart={bodyPart}
