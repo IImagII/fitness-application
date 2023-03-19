@@ -3,7 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { fetchData, exerciseOptions } from '../utils/fetchData'
 import HorizontalScrollbar from './HorizontalScrollbar'
 
-const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
+const SearchExercises = ({
+   setExercises,
+   bodyPart,
+   setBodyPart,
+   isBodyParts,
+}) => {
    const [search, setSearch] = useState('') //состояние для управляемого input (TextField)
 
    const [bodyParts, setBodyParts] = useState([]) // тут храниться все что пришло от API
@@ -113,6 +118,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
                data={bodyParts}
                bodyPart={bodyPart}
                setBodyPart={setBodyPart}
+               isBodyParts
             />
          </Box>
       </Stack>

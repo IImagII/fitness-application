@@ -10,6 +10,8 @@ const ExerciseDetail = () => {
    const { id } = useParams()
    const [exerciseDetail, setExerciseDetail] = useState({}) // состояние которое содержит упражнения из первого запроса на API
    const [exerciseVideos, setExerciseVideos] = useState([]) // тут содержиться состояние из второго видео запроса на API
+   const [exercisesTarget, setExercisesTarget] = useState([]) // состояние для третьего коммпонента exerciseTarge
+   const [exerciseEquipment, setExerciseEquipment] = useState([])
 
    //функция по получению конкретного упражнения при клике на него
    useEffect(() => {
@@ -26,14 +28,30 @@ const ExerciseDetail = () => {
             `${exerciseDbUrl}/exercises/exercise/${id}`,
             exerciseOptions
          )
+
          setExerciseDetail(exerciseDetailData)
 
          //формируем функцию для другго запроса на видео APi
          const fetchYoutubeData = await fetchData(
-            `${youtubeSearchUrl}/search?q=${exerciseDetailData.name}`,
+            `${youtubeSearchUrl}/search?query=${exerciseDetailData.name}`,
             youtubeOptions
          )
-         setExerciseVideos(fetchYoutubeData)
+
+         setExerciseVideos(fetchYoutubeData.contents)
+
+         //формируем запрос на третий омпонент target
+         const targetMuscleExerciseData = await fetchData(
+            `${exerciseDbUrl}/exercises/target/${exerciseDetailData.target}`,
+            exerciseOptions
+         )
+         setExercisesTarget(targetMuscleExerciseData)
+
+         //формируем запрос на третий омпонент equipment
+         const equipmentExerciseData = await fetchData(
+            `${exerciseDbUrl}/exercises/equipment/${exerciseDetailData.equipment}`,
+            exerciseOptions
+         )
+         setExerciseEquipment(equipmentExerciseData)
       }
       fetchExercisesData()
    }, [id])
@@ -45,7 +63,10 @@ const ExerciseDetail = () => {
             exerciseVideos={exerciseVideos}
             name={exerciseDetail.name}
          />
-         <SimilarExercises />
+         <SimilarExercises
+            exercisesTarget={exercisesTarget}
+            exerciseEquipment={exerciseEquipment}
+         />
       </Box>
    )
 }

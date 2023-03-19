@@ -30,23 +30,29 @@ const RightArrow = () => {
 /*================это стрелки для навигации по слайдеру===========*/
 
 // это компонент слайдера по категориям
-const HorizontalScrollbar = ({ data, bodyParts, setBodyPart, bodyPart }) => (
-   <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
-      {data.map(item => (
-         <Box
-            key={item.id || item}
-            itemId={item.id || item} //это сделано для того чтобы работал слайдер горизонтальный
-            title={item.id || item} //это сделано для того чтобы работал слайдер горизонтальный
-            m='0 40px'
-         >
-            <BodyPart
-               item={item}
-               bodyPart={bodyPart}
-               setBodyPart={setBodyPart}
-            />
-         </Box>
-      ))}
-   </ScrollMenu>
-)
+const HorizontalScrollbar = ({ data, isBodyParts, setBodyPart, bodyPart }) => {
+   return (
+      <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
+         {data.map(item => (
+            <Box
+               key={item.id || item}
+               itemId={item.id || item} //это сделано для того чтобы работал слайдер горизонтальный
+               title={item.id || item} //это сделано для того чтобы работал слайдер горизонтальный
+               m='0 40px'
+            >
+               {isBodyParts ? (
+                  <BodyPart
+                     item={item}
+                     bodyPart={bodyPart}
+                     setBodyPart={setBodyPart}
+                  />
+               ) : (
+                  <ExerciseCard exercise={item} />
+               )}
+            </Box>
+         ))}
+      </ScrollMenu>
+   )
+}
 
 export default HorizontalScrollbar
